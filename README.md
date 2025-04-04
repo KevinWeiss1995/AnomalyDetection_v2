@@ -32,15 +32,18 @@ The preprocessing script can be found in the preprocessing folder, and handles t
 
 ## Model
 
-The model is a neural network that consists of 13 layers: 
+The model is a simple neural network designed for binary classification tasks. It consists of:
 
-- 5 Dense layers
-- 4 Dropout layers
-- 2 BatchNorm layers
-- 1 Add layer (for residual connection)
-- 1 Input layer
+- **Architecture**: 
+  - An input layer with 128 neurons and ReLU activation
+  - A hidden layer with 64 neurons and ReLU activation
+  - An output layer with 1 neuron and sigmoid activation for binary classification
 
-The architecture includes a residual block (layers 6-10). Residual connections were originally used to help with gradient flow during training, but our KFAC optimizer handles this well. We still implement them because they create ensemble-like behavior where the network can choose to use or bypass certain layers and provide additional paths for information flow, regardless of optimizer.
+- **Regularization Techniques**:
+  - **Dropout**: Applied after each hidden layer with a rate of 0.5 to prevent overfitting.
+  - **L2 Regularization**: Applied to the kernel of each dense layer with a regularization factor of 0.001.
+
+This model is designed to handle binary classification problems effectively by using dropout and L2 regularization to mitigate overfitting.
 
 ## Training
 
