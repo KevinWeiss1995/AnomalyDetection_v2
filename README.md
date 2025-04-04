@@ -20,15 +20,19 @@ Source: https://staff.itee.uq.edu.au/marius/NIDS_datasets/
 
 ## Preprocessing
 
-The preprocessing script can be found in the preprocessing folder, and handles the following tasks:
-- Removes identifying and metadata features (Flow ID, IPs, ports, etc.)
-- Drops columns containing all zeros
-- Converts labels to binary classification (Normal/Attack)
-- Handles class imbalance using RandomUnderSampler
-- Removes low-importance features using RandomForest feature importance
-- Scales data using QuantileTransformer
-- Splits data into train/test sets
-- Saves processed datasets and transformer for later use
+The preprocessing script handles the following tasks to prepare the data for model training:
+
+- **Data Loading**: Utilizes Dask to efficiently load large datasets.
+- **Missing Values**: Fills missing values in numeric columns with the mean of each column.
+- **Duplicate Removal**: Removes duplicate records to ensure data quality.
+- **Feature Dropping**: Drops irrelevant features such as `IPV4_SRC_ADDR` and `IPV4_DST_ADDR`.
+- **Categorical Encoding**: Encodes categorical data, such as the `PROTOCOL` column, using `LabelEncoder`.
+- **Class Imbalance Handling**: Uses `RandomUnderSampler` to balance the dataset by undersampling the majority class.
+- **Feature Importance**: Computes feature importance using a `RandomForestClassifier` to select important features.
+- **Correlation Removal**: Removes highly correlated features to reduce redundancy.
+- **Normalization**: Applies `QuantileTransformer` to scale the data for better model performance.
+
+The preprocessing steps ensure that the data is clean, balanced, and ready for training, improving the model's ability to learn effectively.
 
 ## Model
 
